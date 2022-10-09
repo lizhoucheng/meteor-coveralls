@@ -5,7 +5,7 @@ orbs:
   node: circleci/node@1.1.6
 
 jobs:
-  build-1:
+  meteor-test-report:
     executor:
       name: node/default
 
@@ -23,6 +23,23 @@ jobs:
             flag_name: meteor mocha coverage
             verbose: true
 
+  jest-test-report:
+    executor:
+      name: node/default
+
+    steps:
+      - checkout
+
+      - node/with-cache:
+          steps:
+            - run: npm install"
+            - run: npm run jest-test
+
+      - coveralls/upload:
+            parallel: true
+            flag_name: jest mocha coverage
+            verbose: true
+  
   done:
     executor:
       name: node/default
@@ -34,6 +51,7 @@ jobs:
 workflows:
   test_parallel_then_upload:
     jobs:
-      - build-1
+      - meteor-test-report
+      - jest-test-report
       - done:
-          requires: [build-1]
+          requires: [meteor-test-report, jest-test-report]
