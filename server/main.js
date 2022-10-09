@@ -5,6 +5,10 @@ function insertLink({ title, url }) {
   LinksCollection.insert({title, url, createdAt: new Date()});
 }
 
+function notTested() {
+  return 1;
+}
+
 Meteor.startup(() => {
   // If the Links collection is empty, add some data.
   if (LinksCollection.find().count() === 0) {
