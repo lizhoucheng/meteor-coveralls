@@ -10,7 +10,7 @@ function notTested() {
 }
 
 function notTested1() {
-  return 1;
+  return 2;
 }
 
 Meteor.startup(() => {
