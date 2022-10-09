@@ -18,9 +18,10 @@ jobs:
             - run: meteor npm run test
 
       - coveralls/upload:
-          parallel: true
-          flag_name: meteor mocha coverage
-          verbose: true
+            path_to_lcov: ./.coverage/lcov.info
+            parallel: true
+            flag_name: meteor mocha coverage
+            verbose: true
 
   done:
     executor:
